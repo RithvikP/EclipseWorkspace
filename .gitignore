@@ -1,7 +1,4 @@
 *.class
 *.jar
-.metadata/
-.recommenders/
-.project
-.classpath
-.settings/
+.*
+!/.gitignore
