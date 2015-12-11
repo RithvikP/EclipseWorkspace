@@ -17,22 +17,33 @@ import javax.swing.text.StyledDocument;
 
 public class FOSSQuiz {
 
+	static int questionAt=-1;
+
 	static String systemFont="Trebuchet";
 
 	static String[][] questions= {
-				{"D","What is FOSS?","A. A type of moss. ","B. Friedrech Obermann Syllable Syndrome",
-				"C. ","D. Free and Open Source Software"},{"C","What is a type of FOSS software"
-				,"A. Windows","B. Sublime Text","C. Eclipse","D. IOS"},{"A","Is FOSS free?"
-				,"A. Yes, for everyone", "B. No", "C. Yes, If you change its code",
-				" Yes, if you are a student"},{"B","Can anyone edit the source code of"
-				+ " a FOSS program?", "A. Yes, if you pay money","B. Yes, anyone can.",
-				"C. Yes, if you are a professional developer","D. No"},{"B","Who invented the linux "
-				+ "kernel?", "A. Steve Jobs","B. Linus Torvalds","C. Larry Page","D. Linus Roache"},
-				{"","What is the icon for Linux","A. A penguin","B. A leopard","C. A computer",
-				"D. A window"},{"C","Which of these is a Linux Distribution?","A. Windows","B. Solaris"
-				,"C. Debian","D. Mac OS X"},{},{},{},{},{},{},{},{}
-			};
-					
+			{"D","What is FOSS?","A. A type of moss. ","B. Friedrech Obermann Syllable Syndrome",
+				"C. Fast only software system","D. Free and Open Source Software"},{"C","What is a type"
+						+ " of FOSS software" ,"A. Windows","B. Sublime Text","C. Eclipse","D. Safari"},
+			{"A","Is FOSS free?" ,"A. Yes, for everyone", "B. No", "C. Yes, If you change its code",
+			"D. Yes, if you are a student"},{"B","Can anyone edit the source code of"
+					+ " a FOSS program?", "A. Yes, if you pay money","B. Yes, anyone can.",
+					"C. Yes, if you are a professional developer","D. No"},{"B","Who invented the linux "
+							+ "kernel?", "A. Steve Jobs","B. Linus Torvalds","C. Larry Page","D. Linus Roache"},
+			{"A","What is the icon for Linux","A. A penguin","B. A leopard","C. A computer",
+			"D. A window"},{"C","Which of these is a Linux Distribution?","A. Windows","B. Solaris"
+				,"C. Debian","D. Mac OS X"},{"D","What is open source software?","A. Software whose "
+						+ "code is availabe if paid for","B. Software whose code is openly availabe but "
+								+ "uneditable.","C. Software whose code is openly availabe and editable but "
+										+ "unshareable.","D. Software whose code is openly available, editabl"
+												+ "e and shareable"}
+				,{"B","Which of these OSes are open source?","A. Windows","B. Android","C. BB10","D. IOS"},
+				{"C","What is FOSS ASIA","A. A search engine","B. A moss cultivating company","C. "
+					+"A company that brings people together to make things with open technologies",
+					"D. An electirc component manufacturer"}
+
+	};
+
 
 	static int[] points=new int[10];
 
@@ -82,43 +93,31 @@ public class FOSSQuiz {
 	}
 
 	private static void question() {
-		//Find a random question
-		boolean go=false;
-		int questionAt=0;
-		ArrayList<Integer> done=new ArrayList<Integer>();
-		/*while(!go){
-			questionAt=(int) (Math.random()*15);
-			for(int i:done){
-				if(!(questionAt==i)){
-					go=true;
-				}
-			}
-		}
-		done.add(questionAt);*/
+		//Choose the question number
+		questionAt++;
 
 		//Create buttons
 		JButton a = new JButton();
 		JButton b = new JButton();
 		JButton c = new JButton();
 		JButton d = new JButton();
-		
+
 		//Create the text box
 		JTextPane pane = new JTextPane();
 
-		
+
 		a.setVisible(true);
 		b.setVisible(true);
 		c.setVisible(true);
 		d.setVisible(true);
 		pane.setVisible(true);
 
-		
-		
+
+
 		//setup the question box
 		pane.setBounds(0,0,600,150);
 		pane.setEditable(false);
-		//pane.setText(questions[questionAt][2]);
-		pane.setText("foo");
+		pane.setText(questions[questionAt][1]);
 		pane.setFont(new Font(systemFont,1,40));
 		pane.setOpaque(true);
 		pane.setBackground(Color.cyan);
@@ -127,21 +126,23 @@ public class FOSSQuiz {
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		sdoc.setParagraphAttributes(0, sdoc.getLength(), center, false);
 
+		System.out.println(questionAt);
+
 		//Setup a button------------------
-		a.setText(questions[questionAt][3]);
+		a.setText(questions[questionAt][2]);
 		a.setBounds(0, 150, 300, 225);
 		a.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				a.setBorderPainted(false);
 				//Add Right or Wrong colors and add to the points array
-				if(questions[questionAt][1].equals("A")){
+				if(questions[questionAt][0].equals("A")){
 					a.setBackground(Color.green);
-					points[done.size()]=1;
+					points[questionAt]=1;
 				}
 				else{
 					a.setBackground(Color.red);
-					points[done.size()]=0;
-					
+					points[questionAt]=0;
+
 					//Show the right answer
 					if(questions[questionAt][1].equals("B")){
 						b.setBorderPainted(false);
@@ -155,43 +156,47 @@ public class FOSSQuiz {
 						d.setBorderPainted(false);
 						d.setBackground(Color.green);
 					}
-					if(done.size()<10){
-
-						question();
-					}
-					else{
-						a.setVisible(false);
-						b.setVisible(false);
-						c.setVisible(false);
-						d.setVisible(false);
-						pane.setVisible(false);
-						endScreen();
-						
-
-					}
 				}
+				if(questionAt<9){
+					frame.remove(a);
+					frame.remove(b);
+					frame.remove(c);
+					frame.remove(d);
+					question();
+				}
+				else{
+					a.setVisible(false);
+					b.setVisible(false);
+					c.setVisible(false);
+					d.setVisible(false);
+					pane.setVisible(false);
+					endScreen();
+
+
+				}
+
 			}
 		});
 		a.setOpaque(true);
 		a.setBackground(Color.white);
 		a.setBorderPainted(true);
-		a.setFont(new Font(systemFont,1,30));
+		a.setFont(new Font(systemFont,1,20));
 
 		//Setup b button-------------------
-		b.setText(questions[questionAt][4]);
+		b.setText(questions[questionAt][3]);
 		b.setBounds(300, 150, 300, 225);
 		b.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				b.setBorderPainted(false);
 				//Add Right or Wrong colors and add to the points array
-				if(questions[questionAt][1].equals("B")){
+				if(questions[questionAt][0].equals("B")){
 					b.setBackground(Color.green);
-					points[done.size()]=1;
+					points[questionAt]=1;
 
 				}
 				else{
 					b.setBackground(Color.red);
-					points[done.size()]=0;
+					points[questionAt]=0;
 					//Show the right answer
 					if(questions[questionAt][1].equals("A")){
 						a.setBorderPainted(false);
@@ -205,19 +210,23 @@ public class FOSSQuiz {
 						d.setBorderPainted(false);
 						d.setBackground(Color.green);
 					}
-					if(done.size()<10){
-
-						question();
-					}
-					else{
-						a.setVisible(false);
-						b.setVisible(false);
-						c.setVisible(false);
-						d.setVisible(false);
-						pane.setVisible(false);
-						endScreen();
-					}
 				}
+				if(questionAt<9){
+					frame.remove(a);
+					frame.remove(b);
+					frame.remove(c);
+					frame.remove(d);
+					question();
+				}
+				else{
+					a.setVisible(false);
+					b.setVisible(false);
+					c.setVisible(false);
+					d.setVisible(false);
+					pane.setVisible(false);
+					endScreen();
+				}
+
 			}
 
 
@@ -225,25 +234,29 @@ public class FOSSQuiz {
 		b.setOpaque(true);
 		b.setBackground(Color.white);
 		b.setBorderPainted(true);
-		b.setFont(new Font(systemFont,1,30));
+		b.setFont(new Font(systemFont,1,20));
 
 		//Setup c button---------------------
-		c.setText(questions[questionAt][5]);
+		c.setText(questions[questionAt][4]);
 		c.setBounds(0, 375, 300, 225);
 		c.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				c.setBorderPainted(false);
 				//Add Right or Wrong colors and add to the points array
-				if(questions[questionAt][1].equals("C")){
+				if(questions[questionAt][0].equals("C")){
 					c.setBackground(Color.green);
-					points[done.size()]=1;
-					if(done.size()<10){
+					points[questionAt]=1;
+					if(questionAt<10){
+						frame.remove(a);
+						frame.remove(b);
+						frame.remove(c);
+						frame.remove(d);
 						question();
 					}
 				}
 				else{
 					c.setBackground(Color.red);
-					points[done.size()]=0;
+					points[questionAt]=0;
 					//Show the right answer
 					if(questions[questionAt][1].equals("B")){
 						b.setBorderPainted(false);
@@ -257,42 +270,47 @@ public class FOSSQuiz {
 						d.setBorderPainted(false);
 						d.setBackground(Color.green);
 					}
-					if(done.size()<10){
-
-						question();
-					}
-					else{
-						a.setVisible(false);
-						b.setVisible(false);
-						c.setVisible(false);
-						d.setVisible(false);
-						pane.setVisible(false);
-						endScreen();
-					}
 				}
+				if(questionAt<9){
+					frame.remove(a);
+					frame.remove(b);
+					frame.remove(c);
+					frame.remove(d);
+					question();
+				}
+
+				else{
+					a.setVisible(false);
+					b.setVisible(false);
+					c.setVisible(false);
+					d.setVisible(false);
+					pane.setVisible(false);
+					endScreen();
+				}
+
 			}
 		});
 		c.setOpaque(true);
 		c.setBackground(Color.white);
-		c.setFont(new Font(systemFont,1,30));
+		c.setFont(new Font(systemFont,1,20));
 
 		//Setup d button---------------------
-		d.setText(questions[questionAt][6]);
+		d.setText(questions[questionAt][5]);
 		d.setBounds(300, 375, 300, 225);
 		d.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				d.setBorderPainted(false);
 				//Add Right or Wrong colors and add to the points array
-				if(questions[questionAt][1].equals("A")){
+				if(questions[questionAt][0].equals("D")){
 					d.setBackground(Color.green);
-					points[done.size()]=1;
-					if(done.size()<10){
+					points[questionAt]=1;
+					if(questionAt<10){
 						question();
 					}
 				}
 				else{
 					d.setBackground(Color.red);
-					points[done.size()]=0;
+					points[questionAt]=0;
 					//Show the right answer
 					if(questions[questionAt][1].equals("A")){
 						a.setBorderPainted(false);
@@ -306,25 +324,30 @@ public class FOSSQuiz {
 						b.setBorderPainted(false);
 						b.setBackground(Color.green);
 					}
-					if(done.size()<10){
-
-						question();
-					}
-					else{
-						a.setVisible(false);
-						b.setVisible(false);
-						c.setVisible(false);
-						d.setVisible(false);
-						pane.setVisible(false);
-						endScreen();
-					}
 				}
+				if(questionAt<9){
+					frame.remove(a);
+					frame.remove(b);
+					frame.remove(c);
+					frame.remove(d);
+					question();
+				}
+
+				else{
+					a.setVisible(false);
+					b.setVisible(false);
+					c.setVisible(false);
+					d.setVisible(false);
+					pane.setVisible(false);
+					endScreen();
+				}
+
 			}
 		});
 		d.setOpaque(true);
 		d.setBackground(Color.white);
 		d.setBorderPainted(true);
-		d.setFont(new Font(systemFont,1,30));
+		d.setFont(new Font(systemFont,1,20));
 
 		//Add components to the JFrame
 		frame.add(pane);
@@ -335,7 +358,7 @@ public class FOSSQuiz {
 
 	}
 	private static void endScreen() {
-		
+
 	}
 
 }
