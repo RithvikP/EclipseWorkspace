@@ -294,7 +294,6 @@ public class TextEditorPane extends JFrame implements ActionListener{
 		String areaContent = area.getText();
 		areaContent = areaContent.replaceAll(" " + area.getSelectedText(),"");
 		area.setText(areaContent);*/
-		
 		area.cut();
 
 	}
@@ -348,8 +347,6 @@ public class TextEditorPane extends JFrame implements ActionListener{
 		String replace = area.getSelectedText().toLowerCase();
 		area.replaceSelection(replace);
 
-
-
 	}
 
 	private void uppercase() {
@@ -370,7 +367,6 @@ public class TextEditorPane extends JFrame implements ActionListener{
 		content = content.replaceAll("(?i)\\bdo\\b","doth");
 		content = content.replaceAll("(?i)\\bhas\\b","hath");
 		content = content.replaceAll("(?i)\\bare\\b","art");
-
 
 		//Put it back in
 		//area.setText(content);
