@@ -17,6 +17,7 @@ public class CharacterSelector {
 		Arrays.sort(chars);
 		String finalState=new String(chars);
 		
+		
 		Set<Character> charSet = new LinkedHashSet<Character>();
 		for (char c : chars) {
 		    charSet.add(c);
