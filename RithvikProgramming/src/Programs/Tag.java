@@ -58,9 +58,9 @@ public class Tag {
 		Player2.setColor("yellow");
 		Player3.setColor("white");
 
-		byte Player1Speed = 20;
-		byte Player2Speed = 20;
-		byte Player3Speed = 20;
+		byte Player1Speed = 40;
+		byte Player2Speed = 40;
+		byte Player3Speed = 40;
 
 		Zen.setBackground("sky blue");
 
@@ -298,21 +298,21 @@ public class Tag {
 				}
 
 				if(p1itTimes<=0){
-					Player1Speed = 20;
+					Player1Speed = 40;
 				}
 				if(p2itTimes>0){
-					Player2Speed = 0;
+					Player2Speed = 40;
 				}
 
 				if(p2itTimes<=0){
-					Player2Speed = 20;
+					Player2Speed = 40;
 				}
 				if(p3itTimes>0){
 					Player3Speed = 0;
 				}
 
 				if(p3itTimes<=0){
-					Player3Speed = 20;
+					Player3Speed = 40;
 				}
 
 				Zen.buffer(27);
