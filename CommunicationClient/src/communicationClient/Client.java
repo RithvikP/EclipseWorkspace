@@ -140,7 +140,7 @@ public class Client extends Encrypt{
 				sendCipher=areaSend.getText();
 				sendLabel.setVisible(false);
 				sendDone.setVisible(false);
-				
+
 				writeMessage();
 			}
 		});
@@ -221,8 +221,8 @@ public class Client extends Encrypt{
 		seeCipherLabel.setLocation(0, 0);
 		seeCipherLabel.setFont(f);
 		SEEM.add(seeCipherLabel);
-		
-		
+
+
 		//reset JTextArea
 				areaSee.setText("");
 
@@ -243,13 +243,13 @@ public class Client extends Encrypt{
 				//outputs requested data
 				myFirebaseRef.child("/"+whoseMessage).addValueEventListener(new ValueEventListener() {
 					public void onDataChange(DataSnapshot snapshot) {
-						
+
 						//JLabel with message
 						message=new JLabel((String) snapshot.getValue());
 						message.setSize(700,700);
 						message.setLocation(0,0);
 						message.setFont(new Font("Arial",0,16));
-						
+
 						//Set up JFrame
 						showMessage.setSize(700,700);
 						showMessage.setVisible(true);
@@ -264,6 +264,6 @@ public class Client extends Encrypt{
 
 		SEEM.add(decryptButton);
 
-		
+
 	}
 }
